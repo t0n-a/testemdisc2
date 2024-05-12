@@ -14,11 +14,29 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        ExecutionTimes executionTimes = new ExecutionTimes();
         System.out.println("Enter the path to the CSV file containing the graph data:");
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         String filePath;
         try {
-            filePath = consoleReader.readLine();
+            String input = consoleReader.readLine();
+            if (input.equalsIgnoreCase("US14")) {
+                System.out.print("Enter the base directory:");
+                String baseDirectory = consoleReader.readLine();
+
+                System.out.print("Enter the base file name (e.g., us14): ");
+                String baseFileName = consoleReader.readLine();
+
+                System.out.print("Enter the number of files to read: ");
+                int numberOfFiles = Integer.parseInt(consoleReader.readLine());
+
+                List<String> fileNames = executionTimes.getFileNames(baseFileName, numberOfFiles, baseDirectory);
+
+                executionTimes.getExecutionTimes(fileNames);
+                return;
+            } else {
+                filePath = input;
+            }
         } catch (IOException e) {
             System.out.println("Error reading from console: " + e.getMessage());
             return;
